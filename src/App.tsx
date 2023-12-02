@@ -9,7 +9,7 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 const App:React.FC = () => {
   const count = useAppSelector((state) => state.counter.count);
-  const { users } = useAppSelector((state) => state.users);
+  const { users, loading, error } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,6 +23,8 @@ const App:React.FC = () => {
       <button onClick={() => dispatch(increase())}>Up</button>
       <button onClick={() => dispatch(decrease())}>Down</button>
       <h2>Users</h2>
+      { loading && <p>...Loading</p>}
+      { error && <p>データ取得に失敗しました</p>}
       {users && users.map((user:any, index:number) => <div key={index}>{user.name}</div>)}
     </>
   );
